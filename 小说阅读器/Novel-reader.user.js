@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         小说阅读器
-// @version      0.0.2
+// @version      0.0.3
 // @description  小说阅读器，特点是仿起点风格的网站样式，支持UU看书，笔趣阁，书趣阁，81中文网等
 // @author       shangphoenix52@gmail.com
 // @namespace    shangphoenix52
@@ -1106,7 +1106,7 @@ Reader.prototype.processReadContent = function () {
   var $bgTitle = document.createElement("div");
   $bgTitle.className = "nr-toolbar-title";
   $bgTitle.textContent = "背景色";
-  $toolbar.appendChild($bgTitle);
+  // $toolbar.appendChild($bgTitle); // Hidden: removed suffix label
 
   var $bgSwatches = document.createElement("div");
   $bgSwatches.className = "nr-color-swatches";
@@ -1135,7 +1135,7 @@ Reader.prototype.processReadContent = function () {
   var $fsTitle = document.createElement("div");
   $fsTitle.className = "nr-toolbar-title";
   $fsTitle.textContent = "字体大小";
-  $toolbar.appendChild($fsTitle);
+  // $toolbar.appendChild($fsTitle); // Hidden: removed suffix label
 
   var $fsBtns = document.createElement("div");
   $fsBtns.className = "nr-fs-buttons";
@@ -1174,7 +1174,7 @@ Reader.prototype.processReadContent = function () {
   var $wTitle = document.createElement("div");
   $wTitle.className = "nr-toolbar-title";
   $wTitle.textContent = "页面宽度";
-  $toolbar.appendChild($wTitle);
+  // $toolbar.appendChild($wTitle); // Hidden: removed suffix label
 
   var $wBtns = document.createElement("div");
   $wBtns.className = "nr-fs-buttons";
@@ -1220,7 +1220,7 @@ Reader.prototype.processReadContent = function () {
   // Append to body after processRead() rebuilds body, then start hide timer
   setTimeout(function () {
     document.body.appendChild($toolbar);
-    _scheduleHide();
+    $toolbar.classList.add("nr-collapsed"); // Default to collapsed state
   }, 0);
 };
 
