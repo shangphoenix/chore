@@ -1093,6 +1093,40 @@ Reader.prototype.processReadContent = function () {
   });
   $mark.classList.add(CLASSNAME_BOOK_MARK);
   this.$contentNew.appendChild($mark);
+
+  // Background color button
+  var BG_COLORS = ['nr-bg-0','nr-bg-1','nr-bg-2','nr-bg-3','nr-bg-4'];
+  var BG_LABELS = ['白','米','绿','褐','暗'];
+  var bgIndex = parseInt(localStorage.getItem('novel-reader-bg') || '1');
+  _this2.body.classList.add(BG_COLORS[bgIndex]);
+  var $bg = document.createElement("div");
+  $bg.classList.add('nr-bg-btn');
+  $bg.innerHTML = BG_LABELS[bgIndex];
+  $bg.addEventListener('click', function () {
+    _this2.body.classList.remove(BG_COLORS[bgIndex]);
+    bgIndex = (bgIndex + 1) % BG_COLORS.length;
+    _this2.body.classList.add(BG_COLORS[bgIndex]);
+    $bg.innerHTML = BG_LABELS[bgIndex];
+    localStorage.setItem('novel-reader-bg', bgIndex);
+  });
+  this.$contentNew.appendChild($bg);
+
+  // Font size button
+  var FS_CLASSES = ['nr-fs-0','nr-fs-1','nr-fs-2','nr-fs-3','nr-fs-4'];
+  var FS_LABELS = ['小','次','中','大','特'];
+  var fsIndex = parseInt(localStorage.getItem('novel-reader-fs') || '2');
+  _this2.body.classList.add(FS_CLASSES[fsIndex]);
+  var $fs = document.createElement("div");
+  $fs.classList.add('nr-fs-btn');
+  $fs.innerHTML = FS_LABELS[fsIndex];
+  $fs.addEventListener('click', function () {
+    _this2.body.classList.remove(FS_CLASSES[fsIndex]);
+    fsIndex = (fsIndex + 1) % FS_CLASSES.length;
+    _this2.body.classList.add(FS_CLASSES[fsIndex]);
+    $fs.innerHTML = FS_LABELS[fsIndex];
+    localStorage.setItem('novel-reader-fs', fsIndex);
+  });
+  this.$contentNew.appendChild($fs);
 };
 
 // 去除正文中的广告
@@ -1143,6 +1177,24 @@ var isInit = false;
 function init() {
   if (isInit) return;
   isInit = true;
+  var novelReaderStyle = document.createElement("style");
+  novelReaderStyle.textContent = [
+    "body.novel-reader-body.nr-bg-0 { background-color: #ffffff !important; }",
+    "body.novel-reader-body.nr-bg-1 { background-color: #f5f0e8 !important; }",
+    "body.novel-reader-body.nr-bg-2 { background-color: #e8f5e9 !important; }",
+    "body.novel-reader-body.nr-bg-3 { background-color: #f4ecd8 !important; }",
+    "body.novel-reader-body.nr-bg-4 { background-color: #1e1e1e !important; }",
+    "body.novel-reader-body.nr-bg-4 .novel-reader-content { color: #c8c8c8 !important; border-color: #444 !important; }",
+    "body.novel-reader-body.nr-fs-0 .novel-reader-content { font-size: 14px !important; }",
+    "body.novel-reader-body.nr-fs-1 .novel-reader-content { font-size: 16px !important; }",
+    "body.novel-reader-body.nr-fs-2 .novel-reader-content { font-size: 18px !important; }",
+    "body.novel-reader-body.nr-fs-3 .novel-reader-content { font-size: 20px !important; }",
+    "body.novel-reader-body.nr-fs-4 .novel-reader-content { font-size: 24px !important; }",
+    ".nr-bg-btn, .nr-fs-btn { position: absolute; top: 0; width: 24px; height: 40px; display: flex; align-items: center; justify-content: center; cursor: pointer; border-radius: 0 0 4px 4px; font-size: 12px; color: #fff; user-select: none; }",
+    ".nr-bg-btn { right: 24px; background: #909399; }",
+    ".nr-fs-btn { right: 0px; background: #e6a23c; }"
+  ].join("\n");
+  document.head.appendChild(novelReaderStyle);
   if (location.hostname === "book.qidian.com") {
     var qidian = new components_qidian();
     qidian.mounted();
