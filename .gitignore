@@ -1,3 +1,4 @@
 # Browser saved pages
 **/*.html
 **/*_files/
+/.claude
