@@ -1,11 +1,19 @@
 # chore
 
-用来存放一些随手写的小程序和配置文件，没有统一的主题，想到什么写什么。
+个人使用的小工具、配置和 Codex Skills 集合。各项目按类型存放，彼此独立。
 
-## 内容
+## 目录
 
-### [mist.css](./mist.css)
-自用 Typora 主题。在 GitHub 主题基础上调整了配色：绿色 blockquote、蓝调 inline code、柔和暖黄 mark 高亮。
+| 分类 | 内容 |
+|---|---|
+| [skills](./skills/) | 可复用的 Codex Skills |
+| [typora-themes](./typora-themes/) | 自用 Typora 主题 |
+| [userscripts](./userscripts/) | 浏览器 UserScript |
 
-### [小说阅读器](./小说阅读器/)
-针对国内小说网站的 UserScript 合集，提供统一的仿起点风格阅读界面。支持 UU看书、笔趣阁等多个站点。
+## 当前项目
+
+- [Upload Markdown Images](./skills/upload-markdown-images/SKILL.md)：确认后通过 PicGo-Core CLI 上传 Markdown 中新增的本地图片。
+- [Mist](./typora-themes/mist/)：基于 Typora GitHub Theme 修改的自用主题。
+- [Novel Reader](./userscripts/novel-reader/)：为多个中文小说网站提供统一阅读界面的 UserScript。
+
+每个项目的用途和使用方式见对应目录中的说明文件。
