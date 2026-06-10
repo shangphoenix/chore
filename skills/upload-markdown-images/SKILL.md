@@ -32,10 +32,11 @@ Upload only local images introduced by the current Markdown change. Never upload
   -Confirmed
 ```
 
-9. Parse the JSON result. Replace references only where `status` is `uploaded`.
-10. Preserve each reference's alt text and optional title. Leave failed and unselected references unchanged.
-11. Write the Markdown atomically when possible. Never delete local image files.
-12. Report uploaded, failed, and unselected images separately.
+9. If Codex is running in a sandbox and the uploader reports that `picgo` is missing or access is denied, but the user has verified `picgo -h` works in their normal terminal, request permission to rerun the same uploader command outside the sandbox. Do not ask the user to reinstall PicGo in this case.
+10. Parse the JSON result. Replace references only where `status` is `uploaded`.
+11. Preserve each reference's alt text and optional title. Leave failed and unselected references unchanged.
+12. Write the Markdown atomically when possible. Never delete local image files.
+13. Report uploaded, failed, and unselected images separately.
 
 ## Upload Contract
 
@@ -63,6 +64,26 @@ picgo -h
 ```
 
 If `picgo` is unavailable, stop before requesting upload confirmation and explain that PicGo-Core CLI must be installed or its command path supplied. Do not substitute `PicGo.exe` unless its CLI behavior has been explicitly verified.
+
+## Codex Sandbox Authorization
+
+On Windows, npm global commands such as `picgo` may live under the user's profile, for example:
+
+```text
+C:\Users\<user>\AppData\Roaming\npm\picgo.cmd
+```
+
+Codex sandbox tools can run as a restricted user and may fail to discover or execute that shim even when the user's own PowerShell can run `picgo -h`. In that case:
+
+1. Treat this as an execution-permission issue, not as proof that PicGo-Core CLI is missing.
+2. Do not move or copy npm shim files into the repo or another folder. The shim depends on its npm installation layout, and moving it does not fix sandbox permissions.
+3. Ask for authorization to rerun the preflight/upload command outside the sandbox with a justification such as:
+
+```text
+Allow Codex to run PicGo-Core CLI with your user permissions to upload the confirmed Markdown images?
+```
+
+4. After authorization, rerun the same uploader command. Use `-PicGoCommand` only when the user supplies or confirms a specific CLI path.
 
 ## Supported References
 

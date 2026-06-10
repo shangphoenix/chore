@@ -23,6 +23,11 @@ if (-not $Confirmed) {
 
 $resolvedPicGoCommand = Get-Command -Name $PicGoCommand -ErrorAction SilentlyContinue
 if ($null -eq $resolvedPicGoCommand) {
+    $commonNpmShim = Join-Path $env:APPDATA 'npm\picgo.cmd'
+    if ($PicGoCommand -eq 'picgo' -and (Test-Path -LiteralPath $commonNpmShim)) {
+        throw "PicGo command '$PicGoCommand' was not found in this process, but a user npm shim exists at '$commonNpmShim'. In Codex sandbox, rerun with authorization outside the sandbox or pass -PicGoCommand after confirming the path."
+    }
+
     throw "PicGo command '$PicGoCommand' was not found. Install PicGo-Core CLI or pass -PicGoCommand."
 }
 
@@ -86,6 +91,10 @@ foreach ($inputPath in $ImagePath) {
         }
         catch {
             $outputText = $_.Exception.Message
+            if ($outputText -match 'Access is denied|access denied|拒绝访问') {
+                $lastError = 'PicGo command was found but this process cannot execute it. In Codex sandbox, rerun the uploader with authorization outside the sandbox.'
+                break
+            }
         }
         finally {
             $ErrorActionPreference = $previousPreference
