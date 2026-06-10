@@ -1,0 +1,4 @@
+interface:
+  display_name: "Upload Markdown Images"
+  short_description: "Upload confirmed Markdown images through PicGo safely"
+  default_prompt: "Use $upload-markdown-images to upload newly added local Markdown images after my confirmation."
