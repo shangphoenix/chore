@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         小说阅读器
-// @version      0.0.3
+// @version      0.0.4
 // @description  小说阅读器，特点是仿起点风格的网站样式，支持UU看书，笔趣阁，书趣阁，81中文网等
 // @author       shangphoenix52@gmail.com
 // @namespace    shangphoenix52
@@ -48,6 +48,7 @@
 // @match      *://www.93mc.com/book/*/*.html
 // @match      *://www.lwxs.com/*/*/*.html
 // @match      *://www.biquxs.com/book/*/*.html
+// @match      *://www.biqusa.com/*/*.html
 // @match      *://www.piaotia.com/html/*/*/*.html
 // @match      *://www.fqxs123.com/book/*/*.html
 // @match      *://www.asxs.com/view/*/*.html
@@ -803,6 +804,10 @@ Reader.prototype.judge = function () {
       this.chuangshi();
       return false;
     }
+    if (location.hostname === "www.biqusa.com") {
+      this.biqusa();
+      return false;
+    }
     this.biquge();
   } catch (error) {
     console.error("[Novel Reader] error:", error);
@@ -959,6 +964,27 @@ Reader.prototype.chuangshi = function () {
   this.$contentOld = reader_dq("#article") || document.createElement('div');
   this.$menus = dqs("#bookRead > div > div.read-pagination.page-bottom a");
   this.ads = [];
+  this.process();
+};
+
+Reader.prototype.biqusa = function () {
+  console.log('[Novel Reader] biqusa');
+  this.body.classList.add("biqusa");
+  this.$breadOld = reader_dq(".con_top") || document.createElement('div');
+  this.$titleOld = reader_dq(".bookname h1") || document.createElement('div');
+  this.$contentOld = reader_dq("#content") || document.createElement('div');
+  this.$menus = dqs(".bottem2 a.pre, .bottem2 a.back, .bottem2 a.next") || dqs(".bottem1 a.pre, .bottem1 a.back, .bottem1 a.next");
+  this.ads = ["#footer", ".header", "#listtj", ".box_con + script + div"];
+  var intro = reader_dq("#content p");
+  if (intro && /天才一秒记住本站地址/.test(intro.textContent)) {
+    intro.remove();
+  }
+  var contentAds = dqs("#content #conter_tip, #content div[align='center']");
+  if (contentAds) {
+    contentAds.forEach(function (ad) {
+      ad.remove();
+    });
+  }
   this.process();
 };
 

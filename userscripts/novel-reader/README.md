@@ -8,4 +8,4 @@
 2. 打开 [`novel-reader.user.js`](./novel-reader.user.js)。
 3. 将脚本内容导入 UserScript 管理器并保存。
 
-支持的网站以脚本头部的 `@match` 规则为准。
+支持的网站以脚本头部的 `@match` 规则为准。已适配 `www.biqusa.com` 的章节页（例如 `/16_16906/35255403.html`）；目录页保留站点原样，不会被章节阅读器改造。
