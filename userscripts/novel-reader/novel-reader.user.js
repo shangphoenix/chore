@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         小说阅读器
-// @version      0.0.4
+// @version      0.0.5
 // @description  小说阅读器，特点是仿起点风格的网站样式，支持UU看书，笔趣阁，书趣阁，81中文网等
 // @author       shangphoenix52@gmail.com
 // @namespace    shangphoenix52
@@ -1310,8 +1310,8 @@ function init() {
     ".nr-toolbar * { font-size: 12px !important; }",
     ".nr-toolbar-title { font-size: 11px !important; color: #999; margin-bottom: 2px; }",
     ".nr-toolbar-sep { height: 1px; background: #e0e6f5; margin: 2px 0; }",
-    ".nr-color-swatches { display: flex; flex-wrap: wrap; gap: 4px; width: 52px; }",
-    ".nr-color-swatch { display: inline-block; width: 22px; height: 14px; border: 1px solid #bbb; cursor: pointer; border-radius: 2px; box-sizing: border-box; }",
+    ".nr-toolbar .nr-color-swatches { display: grid; grid-template-columns: repeat(4, 22px); gap: 4px; width: 100px; margin-left: auto; margin-right: auto; }",
+    ".nr-toolbar .nr-color-swatch { display: block; width: 22px; height: 14px; border: 1px solid #bbb; cursor: pointer; border-radius: 2px; box-sizing: border-box; }",
     ".nr-color-swatch:hover { border-color: #555; outline: 1px solid #555; }",
     ".nr-color-swatch.active { border: 2px solid #333; }",
     ".nr-fs-buttons { display: flex; flex-wrap: wrap; gap: 3px; }",
